@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Application Using Vue.js, PHP & MySqli</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="p-2">
+    <div id="app">
+      <div class="alert alert-danger" v-if="errorMsg">{{errorMsg }}</div>
+      <div class="alert alert-success" v-if="successMsg">{{successMsg }}</div>
+      <div class="dropdown" @click="showDropdown = !showDropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Dropdown button
+        </button>
+        <ul
+          style="display: block !important"
+          class="dropdown-menu"
+          v-if="showDropdown"
+          aria-labelledby="dropdownMenuButton1"
+        >
+          <li v-for="category in categories">
+            <router-link
+              class="dropdown-item"
+              :to="`/category?id=${category.id}`"
+              >{{ category.category }}</router-link
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div id="content">
+        <router-view></router-view>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/099fd84ce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
