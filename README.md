@@ -16,10 +16,8 @@ Front-end: HTML/CSS, Bootstrap, Vue.js
 ![image](https://user-images.githubusercontent.com/57691094/130323049-38315ce2-4e64-405e-b3c7-4e93c2f74aa7.png)
 
 ### Category 1
-![image](https://user-images.githubusercontent.com/57691094/130323070-237f4822-348b-403f-a604-f27e65b26154.png)
-
+![image](https://user-images.githubusercontent.com/57691094/130325718-7755604e-00ec-4044-a6e2-e9fdb80ad9a0.png)
 ### Category 2
-![image](https://user-images.githubusercontent.com/57691094/130323820-ae7b5f2a-8159-42c6-9077-bcf0724691f2.png)
-
+![image](https://user-images.githubusercontent.com/57691094/130325725-563efca1-e000-46b3-aef4-6dc1a6ceb870.png)
 ### Category 3
-![image](https://user-images.githubusercontent.com/57691094/130323827-edd20101-cf1d-4cb4-b31c-807e7597320f.png)
+![image](https://user-images.githubusercontent.com/57691094/130325728-0300985a-5fbd-4d49-96ff-f1dc91ad4f63.png)
