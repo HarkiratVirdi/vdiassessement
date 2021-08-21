@@ -248,12 +248,10 @@ var app = new Vue({
       axios
         .get("http://localhost/interview/process.php/")
         .then(function (response) {
-          console.log("response", response);
           if (response.data.error) {
             app.errorMsg = response.data.message;
           } else {
             app.categories = response.data.categories;
-            console.log("categoryes", app.categories);
           }
         });
     },
