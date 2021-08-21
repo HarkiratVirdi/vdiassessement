@@ -52,7 +52,7 @@
           </li>
         </ul>
       </div>
-      <h3>Current Category {{ currentCategory }}</h3>
+      <h3 v-if="currentCategory">Current Category {{ currentCategory }}</h3>
 
       <div id="content">
         <router-view></router-view>
