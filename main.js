@@ -4,18 +4,19 @@ const category = {
       errorMsg: "",
       successMsg: "",
       documents: [],
-      loading: true,
       showEditModal: false,
       showAddModal: false,
       newDocumentName: "",
       currentDoc: {},
+      updateDocName: "",
       newDoc: { name: "", category: this.$route.query.id },
     };
   },
-  created: function () {
+  mounted: function () {
     this.getCategory();
   },
   watch: {
+    //if query id is changed run the function getCategory and set category to id
     "$route.query.id"() {
       (this.newDoc = {
         category: this.$route.query.id,
@@ -31,46 +32,45 @@ const category = {
           `http://localhost/interview/process.php?id=${this.$route.query.id}`
         )
         .then((response) => {
-          console.log("response", response);
           if (response.data.error) {
             this.errorMsg = response.data.message;
-            this.loading = false;
           } else {
             this.documents = response.data.documents;
-            this.loading = true;
-            console.log("documents", this.documents);
+            this.currentCategory = response.data.id;
           }
         });
     },
 
     formInfo(obj) {
-      let fd = new FormData();
-      console.log("obj", obj);
+      let formData = new FormData();
       for (let i in obj) {
-        fd.append(i, obj[i]);
+        formData.append(i, obj[i]);
       }
-      console.log("fd", fd);
-      return fd;
+      return formData;
     },
 
     updateDocument() {
-      console.log("current Doc", this.currentDoc.id);
-      let formData = this.formInfo(this.currentDoc);
+      let formData = this.formInfo({
+        ...this.currentDoc,
+        category: this.$route.query.id,
+        name: this.updateDocName,
+      });
       axios
         .post("http://localhost/interview/process.php?action=update", formData)
         .then((response) => {
-          this.currentDoc = {};
-          console.log("response", response);
-        })
-        .catch((e) => {
-          console.log("e", e);
+          if (response.data.error) {
+            this.errorMsg = response.data.error;
+          } else {
+            //after updating set the current Doc to empty.
+            this.currentDoc = {};
+            //run the function again to show updated ones.
+            this.getCategory();
+          }
         });
     },
 
     addDocument() {
       let formData = this.formInfo(this.newDoc);
-      console.log("form", formData);
-      console.log("this.doc", this.newDoc);
       axios
         .post("http://localhost/interview/process.php?action=create", formData)
         .then((response) => {
@@ -83,13 +83,11 @@ const category = {
         });
     },
     deleteDocument() {
-      console.log("current doc", this.currentDoc.id);
       let formData = this.formInfo(this.currentDoc);
       axios
         .post("http://localhost/interview/process.php?action=delete", formData)
         .then((response) => {
           this.currentDoc = {};
-          console.log("response", response);
           this.getCategory();
         })
         .catch((e) => {
@@ -102,6 +100,7 @@ const category = {
   },
 
   template: `<div>
+  <h3 class="mt-2 text-center">Current Category {{this.newDoc.category}}</h3>
     <button class="btn btn-secondary my-3" v-on:click="showAddModal = true;">Add New Document</button>
   <div class="row">
           <div class="col-lg-12">
@@ -129,7 +128,7 @@ const category = {
                     <span
                       class="text-success"
                       style="cursor: pointer"
-                      v-on:click="showEditModal = true; setCurrentDocument(document); updateDocument()"
+                      v-on:click="showEditModal = true; setCurrentDocument(document);"
                       ><i class="fas fa-edit"> </i
                     ></span>
                   </td>
@@ -167,12 +166,13 @@ const category = {
                     name="name"
                     class="form-control form-control-lg"
                     placeholder="Name"
+                    v-model="updateDocName"
                   />
                 </div>
                 <div class="form-group">
                   <button
-                    class="btn btn-info btn-block btn-lg"
-                    @click="showEditModal = false"
+                    class="btn btn-dark btn-block btn-lg"
+                    @click="showEditModal = false; updateDocument();"
                   >
                     Update Document
                   </button>
@@ -210,7 +210,7 @@ const category = {
                 </div>
                 <div class="form-group">
                   <button
-                    class="btn btn-info btn-block btn-lg"
+                    class="btn btn-dark btn-block btn-lg"
                     @click="showAddModal = false; addDocument();"
                   >
                     Add Document
