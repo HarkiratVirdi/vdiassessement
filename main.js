@@ -150,7 +150,7 @@ const category = {
         <div class="modal-dialog" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Edit User</h5>
+              <h5 class="modal-title">Edit Document</h5>
               <button type="button" class="close">
                 <span aria-hidden="true" v-on:click="showEditModal = false">
                   &times;</span
