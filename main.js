@@ -100,7 +100,7 @@ const category = {
   },
 
   template: `<div>
-  <h3 class="mt-2 text-center">Current Category {{this.newDoc.category}}</h3>
+  
     <button class="btn btn-secondary my-3" v-on:click="showAddModal = true;">Add New Document</button>
   <div class="row">
           <div class="col-lg-12">
@@ -238,22 +238,29 @@ var app = new Vue({
       successMsg: "",
       showDropdown: false,
       categories: [],
+      currentCategory: "",
     };
   },
   mounted: function () {
     this.getAllCategories();
   },
+  watch: {
+    //if query id is changed run the function getCategory and set category to id
+    "$route.query.id"() {
+      this.currentCategory = this.categories[this.$route.query.id - 1].category;
+    },
+  },
   methods: {
     getAllCategories() {
-      axios
-        .get("http://localhost/interview/process.php/")
-        .then(function (response) {
-          if (response.data.error) {
-            app.errorMsg = response.data.message;
-          } else {
-            app.categories = response.data.categories;
-          }
-        });
+      axios.get("http://localhost/interview/process.php/").then((response) => {
+        if (response.data.error) {
+          this.errorMsg = response.data.message;
+        } else {
+          this.categories = response.data.categories;
+          this.currentCategory =
+            this.categories[this.$route.query.id - 1].category;
+        }
+      });
     },
   },
 });
