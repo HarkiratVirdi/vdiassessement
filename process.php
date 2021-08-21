@@ -23,6 +23,7 @@ if (isset($_GET['id'])) {
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
+    crudFunction();
 }
 
 function getCategories()
@@ -45,39 +46,33 @@ function getDocumentsOfCategory()
     $GLOBALS['result']['documents'] = $documents;
 }
 
-// switch ($action) {
-//     case 'read':
-//         readData();
-//         break;
-//     case 'create':
-//         createData();
-//         break;
-//     case 'delete':
-//         deleteData();
-//         break;
-//     case 'update':
-//         updateData();
-//         break;
+function crudFunction()
+{
 
-//     default:
-//         # code...
-//         break;
-// }
+    switch ($GLOBALS['action']) {
+        case 'create':
+            createData();
+            break;
+        case 'delete':
+            deleteData();
+            break;
+        case 'update':
+            updateData();
+            break;
 
-// function readData()
-// {
-//     $sql = $GLOBALS['conn']->query("SELECT id, category, created_at, updated_at FROM categories");
-//     $categories = array();
-//     while ($row = $sql->fetch_assoc()) {
-//         array_push($categories, $row);
-//     }
-//     $GLOBALS['result']['categories'] = $categories;
-// }
+        default:
+            # code...
+            break;
+    }
+}
 
 function createData()
 {
     $name = $_POST['name'];
     $category = $_POST['category'];
+
+    echo "$name";
+    echo "$category";
 
     $sql = $GLOBALS['conn']->query("INSERT INTO documents (category_id, name) VALUES('$category', '$name')");
 
@@ -92,6 +87,8 @@ function createData()
 function deleteData()
 {
     $id = $_POST['id'];
+    echo "in delete $id";
+
     $sql = $GLOBALS['conn']->query("DELETE FROM documents WHERE id='$id'");
 
     if ($sql) {
@@ -106,6 +103,7 @@ function deleteData()
 function updateData()
 {
     $id = $_POST['id'];
+    echo "$id";
     $name = $_POST['name'];
     $category = $_POST['category'];
 
