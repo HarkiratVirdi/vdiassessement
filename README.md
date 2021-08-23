@@ -7,9 +7,9 @@ Front-end: HTML/CSS, Bootstrap, Vue.js
 1. Download all the files in the repository.
 2. Create a new Database in MySQL and name it "vdi".
 3. Import vdi.sql file into your own MySQL Database.
-4. Copy all the files into xampp/htdocs/someFolderName.
+4. Make a folder in xampp/htdocs with name interview and Copy all the files into it.
 5. Change the password in process.php to your user and your admin password. In my case user was root and password was test1234. 
-6. Run the project use localhost/someFolderName.
+6. Run the project use localhost/interview.
 
 ## Screenshots
 ###Home page
